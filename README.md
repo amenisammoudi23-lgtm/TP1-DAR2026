@@ -35,3 +35,13 @@ Lorsque l'on lance la classe `Server`, le programme se met en écoute sur le por
 ##  Exécution du Client
 Une fois le client lancé, il se connecte au serveur. Voici le résultat dans les consoles :
 ![Console du Client](./images/b.png)
+
+## Étape 2 : Service de Multiplication Réseau (Client / Serveur)
+
+###  Fonctionnement
+Dans cette étape, l'application permet une interaction en boucle :
+* Le client saisit un nombre (positif, négatif ou zéro).
+* Le serveur reçoit ce nombre, calcule le produit par 5 (`x * 5`) et renvoie le résultat.
+* L'utilisation de `DataInputStream` et `DataOutputStream` garantit la bonne transmission des entiers, notamment les négatifs.
+  ![Console Client - Étape 2](./images/d.png)
+* 
