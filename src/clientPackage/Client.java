@@ -10,34 +10,60 @@ public class Client {
     public static void main(String[] args) {
         try {
 
-            System.out.println("Je suis un client pas encore connecté…");
+            String ipServeur = "192.168.1.45";
+            int port = 1234;
 
-            Socket socket = new Socket("127.0.0.1", 1234);
+            System.out.println("Tentative de connexion au serveur sur " + ipServeur + ":" + port + "...");
 
-            System.out.println("Je suis un client connecté");
+            Socket socket = new Socket(ipServeur, port);
+            System.out.println("Connexion réussie  Je suis connecté au serveur distant.");
+
             DataInputStream inputStream = new DataInputStream(socket.getInputStream());
             DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
             Scanner scanner = new Scanner(System.in);
 
-            int x;
+            int choix;
             do {
-                System.out.print("Entrez un entier (0 pour quitter) : ");
-                x = scanner.nextInt();
+                System.out.println("   MENU CALCULATRICE RESEAU   ");
+                System.out.println("1. Addition (+)");
+                System.out.println("2. Soustraction (-)");
+                System.out.println("3. Multiplication (*)");
+                System.out.println("4. Division (/)");
+                System.out.println("0. Quitter");
+                System.out.print("Faites votre choix (0-4) : ");
+                choix = scanner.nextInt();
 
-                outputStream.writeInt(x);
+                outputStream.writeInt(choix);
                 outputStream.flush();
 
-                if (x == 0) {
-                    System.out.println("Déconnexion demandée...");
+                if (choix == 0) {
+                    System.out.println("Fermeture de la connexion demandée...");
                     break;
                 }
 
-                int resultat = inputStream.readInt();
+                if (choix >= 1 && choix <= 4) {
+                    System.out.print("Entrez la première valeur x) : ");
+                    double x = scanner.nextDouble();
+                    System.out.print("Entrez la deuxième valeur y : ");
+                    double y = scanner.nextDouble();
 
+                    outputStream.writeDouble(x);
+                    outputStream.writeDouble(y);
+                    outputStream.flush();
 
-                System.out.println("Résultat reçu du serveur (x * 5) = " + resultat);
+                    boolean erreur = inputStream.readBoolean();
+                    if (erreur) {
+                        String messageErreur = inputStream.readUTF();
+                        System.out.println(" Erreur  : " + messageErreur);
+                    } else {
+                        double resultat = inputStream.readDouble();
+                        System.out.println(" Résultat  = " + resultat);
+                    }
+                } else {
+                    System.out.println(" Choix invalide. Veuillez choisir une option entre 0 et 4.");
+                }
 
-            } while (x != 0);
+            } while (choix != 0);
 
             scanner.close();
             inputStream.close();

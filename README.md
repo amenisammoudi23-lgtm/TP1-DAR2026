@@ -44,4 +44,14 @@ Dans cette étape, l'application permet une interaction en boucle :
 * Le serveur reçoit ce nombre, calcule le produit par 5 (`x * 5`) et renvoie le résultat.
 * L'utilisation de `DataInputStream` et `DataOutputStream` garantit la bonne transmission des entiers, notamment les négatifs.
   ![Console Client - Étape 2](./images/d.png)
-* 
+* activité 3:
+* ### 1. Étape 1 : Connexion Multi-machines (LAN)
+* **Configuration Serveur :** Utilisation de `InetAddress` et `InetSocketAddress` pour lier le `ServerSocket` à l'adresse IP réelle de la machine sur un port dédié (`1234`).
+* **Connexion Client :** Remplacement de `localhost` par l'adresse IP de la machine serveur distante pour permettre une communication à travers un réseau local physique.
+
+### 2. Étape 2 : Service de Calculatrice Réseau Avancé
+* **Menu Interactif :** Le client dispose d'un menu affichant quatre opérations fondamentales 
+
+* **Sérialisation des données :** Utilisation des flux binaires `DataInputStream` et `DataOutputStream` pour échanger des types précis (`int` pour les choix, `double` pour les valeurs et les résultats).
+* **Gestion des Erreurs :** Contrôle de robustesse côté serveur, notamment pour la gestion et la signalisation sécurisée de la **division par zéro** (transmission d'un indicateur booléen et d'un message d'erreur textuel).
+* **Fermeture Propre :** Boucle interactive (`do-while`) permettant d'enchaîner les calculs et de libérer proprement toutes les ressources réseau (sockets et flux) à la déconnexion.
